@@ -5,7 +5,7 @@ require_relative '../operation'
 module LedgerSync
   module Stripe
     class Operation
-      class Create
+      class Delete
         include Stripe::Operation::Mixin
       end
     end

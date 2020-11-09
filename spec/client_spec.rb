@@ -7,36 +7,25 @@ support :stripe_helpers
 RSpec.describe LedgerSync::Stripe::Client do
   include StripeHelpers
 
-  let(:api_key) { 'api_key' }
   let(:client) { stripe_client }
-  let(:initialized_client) do
-    described_class.new(
-      api_key: api_key
-    )
-  end
 
-  subject { initialized_client }
-
-  describe '#find' do
-    it { expect(subject).to respond_to(:find) }
-  end
-
-  describe '#ledger_attributes_to_save' do
+  describe '#url_for' do
     it do
-      h = {
-        api_key: api_key
-      }
-      expect(subject.ledger_attributes_to_save).to eq(h)
+      resource = LedgerSync::Stripe::Customer.new(ledger_id: 123)
+      url = 'https://dashboard.stripe.com/customers/123'
+      expect(client.url_for(resource: resource)).to eq(url)
+    end
+
+    it do
+      expect { client.url_for(resource: nil) }.to raise_error(
+        LedgerSync::Error::LedgerError::UnknownURLFormat
+      )
     end
   end
 
-  describe '#post' do
-    it { expect(subject).to respond_to(:post) }
-  end
-
   describe '.ledger_attributes_to_save' do
-    subject { described_class.ledger_attributes_to_save }
-
-    it { expect(subject).to eq(%i[api_key]) }
+    it do
+      expect(described_class.ledger_attributes_to_save).to eq([])
+    end
   end
 end
