@@ -1,0 +1,48 @@
+{
+    "id": "cus_123",
+    "object": "customer",
+    "address": null,
+    "balance": 0,
+    "created": 1573659381,
+    "currency": "usd",
+    "default_source": null,
+    "delinquent": false,
+    "description": null,
+    "discount": null,
+    "email": null,
+    "invoice_prefix": "13B168D",
+    "invoice_settings": {
+        "custom_fields": null,
+        "default_payment_method": null,
+        "footer": null
+    },
+    "livemode": false,
+    "metadata": {
+        "external_id": "ext_id"
+    },
+    "name": null,
+    "phone": null,
+    "preferred_locales": [],
+    "shipping": null,
+    "sources": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "url": "/v1/customers/cus_GAjMZJUKS8I3Dm/sources"
+    },
+    "subscriptions": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "url": "/v1/customers/cus_GAjMZJUKS8I3Dm/subscriptions"
+    },
+    "tax_exempt": "none",
+    "tax_ids": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "url": "/v1/customers/cus_GAjMZJUKS8I3Dm/tax_ids"
+    },
+    "tax_info": null,
+    "tax_info_verification": null
+}

@@ -2,11 +2,11 @@
 
 require_relative 'client'
 
-args = {
+opts = {
   base_module: LedgerSync::Stripe,
   root_path: 'ledger_sync/stripe'
 }
 
-LedgerSync.register_ledger(:stripe, args) do |config|
+LedgerSync.register_ledger(:stripe, opts) do |config|
   config.name = 'Stripe'
 end

@@ -2,28 +2,19 @@
 
 # Define globally so it's only evaluated once.
 
-module LedgerSync
-  module Test
-    class StripeRecord < Record
-      def id
-        hash.fetch('Id', nil)
-      end
-    end
-  end
-end
-
 STRIPE_RECORD_COLLECTION = LedgerSync::Test::RecordCollection.new(
-  dir: File.join(LedgerSync::Stripe.root, 'spec/support/records'),
-  record_class: LedgerSync::Test::StripeRecord
+  dir: File.join(LedgerSync::Stripe.root, 'spec/support/records')
 )
 
 module StripeHelpers # rubocop:disable Metrics/ModuleLength
   def authorized_headers(override = {})
     {
-      'Accept' => 'application/json',
+      'Accept' => '*/*',
       'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Content-Type' => 'application/json',
-      'User-Agent' => /.*/
+      'Authorization' => 'Bearer STRIPE_API_KEY',
+      'Content-Type' => 'application/x-www-form-urlencoded',
+      'User-Agent' => /.+/,
+      'X-Stripe-Client-User-Agent' => /.+/
     }.merge(override)
   end
 
@@ -33,7 +24,7 @@ module StripeHelpers # rubocop:disable Metrics/ModuleLength
     params  = args.fetch(:params, {})
 
     resource_endpoint = stripe_client.class.ledger_resource_type_for(resource_class: resource.class).pluralize
-    ret = "https://api.stripe.com/#{resource_endpoint}"
+    ret = "https://api.stripe.com/v1/#{resource_endpoint}"
 
     if id.present?
       ret += '/' unless ret.end_with?('/')
@@ -90,14 +81,17 @@ module StripeHelpers # rubocop:disable Metrics/ModuleLength
     send("stub_#{stripe_resource_type}_delete")
   end
 
-  def stub_delete_request(url:)
+  def stub_delete_request(args = {})
+    body = args.fetch(:body)
+    url  = args.fetch(:url)
+
     stub_request(:delete, url)
       .with(
         headers: authorized_headers
       )
       .to_return(
-        status: 204,
-        body: '',
+        status: 200,
+        body: body.to_json,
         headers: {}
       )
   end
@@ -158,6 +152,7 @@ module StripeHelpers # rubocop:disable Metrics/ModuleLength
 
     define_method("stub_#{record}_delete") do
       stub_delete_request(
+        body: opts.hash,
         url: send(
           url_method_name,
           id: opts.id
@@ -183,7 +178,8 @@ module StripeHelpers # rubocop:disable Metrics/ModuleLength
         body: body,
         url: send(
           url_method_name,
-          params: params
+          params: params,
+          id: opts.id
         )
       )
     end
