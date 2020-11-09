@@ -1,13 +1,26 @@
 # LedgerSync::Stripe
 
+[![Coverage Status](https://coveralls.io/repos/github/LedgerSync/ledger_sync-stripe/badge.svg?branch=master)](https://coveralls.io/github/LedgerSync/ledger_sync-stripe?branch=master)
+
+
 [ledgersync.dev](www.ledgersync.dev)
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'ledger_sync-stripe'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install ledger_sync-stripe
 
 ## Usage
 
-This template ledger enables you to easily create your own ledger for public or private use. Although this is not an
-exhaustive list, a good place to start assuming your ledger name is `NewLedger`:
-
-1. Find and replace all `STRIPE` with `NEW_LEDGER`
-2. Find and replace all `Stripe` with `NewLedger`
-3. Find and replace all `stripe` with `new_ledger`
-4. Find and replace all `Template Ledger` with `New Ledger`
+Please visit [ledgersync.dev](www.ledgersync.dev) for full documentation, guidelines, and contribution help.
