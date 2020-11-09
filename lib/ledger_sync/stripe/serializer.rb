@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module TemplateLedger
+  module Stripe
     class Serializer < LedgerSync::Serializer
     end
   end

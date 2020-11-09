@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module TemplateLedger
+  module Stripe
     class Client
       include Ledgers::Client::Mixin
 
-      ROOT_URI = 'https://api.template_ledger.com'
+      ROOT_URI = 'https://api.stripe.com'
       DEFAULT_HEADERS = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }.freeze
 
       attr_reader :api_key
@@ -48,7 +48,7 @@ module LedgerSync
       def self.new_from_env(**override)
         new(
           {
-            api_key: ENV.fetch('TEMPLATE_LEDGER_API_KEY')
+            api_key: ENV.fetch('STRIPE_API_KEY')
           }.merge(override)
         )
       end

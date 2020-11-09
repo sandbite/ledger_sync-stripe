@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module TemplateLedger
+  module Stripe
     class SampleResource
       module Operations
-        class Find < TemplateLedger::Operation::Find
+        class Update < Stripe::Operation::Update
           class Contract < LedgerSync::Ledgers::Contract
             params do
-              optional(:external_id).filled(:string)
+              required(:external_id).filled(:string)
               required(:ledger_id).filled(:string)
-              optional(:Name).maybe(:string)
-              optional(:Email).maybe(:string)
+              required(:Name).maybe(:string)
+              required(:Email).maybe(:string)
             end
           end
         end

@@ -2,7 +2,7 @@
 
 # :nocov:
 module LedgerSync
-  module TemplateLedger
+  module Stripe
     VERSION = '0.1.0'
 
     def self.version(args = {})

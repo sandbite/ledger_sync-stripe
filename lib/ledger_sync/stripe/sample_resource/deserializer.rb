@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module TemplateLedger
+  module Stripe
     class SampleResource
-      class Serializer < TemplateLedger::Serializer
-        attribute :Id,
-                  resource_attribute: :ledger_id
+      class Deserializer < Stripe::Deserializer
+        attribute :ledger_id,
+                  hash_attribute: 'Id'
         attribute :Name
         attribute :Email
       end

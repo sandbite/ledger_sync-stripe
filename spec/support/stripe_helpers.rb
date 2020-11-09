@@ -4,7 +4,7 @@
 
 module LedgerSync
   module Test
-    class TemplateLedgerRecord < Record
+    class StripeRecord < Record
       def id
         hash.fetch('Id', nil)
       end
@@ -12,12 +12,12 @@ module LedgerSync
   end
 end
 
-TEMPLATE_LEDGER_RECORD_COLLECTION = LedgerSync::Test::RecordCollection.new(
-  dir: File.join(LedgerSync::TemplateLedger.root, 'spec/support/records'),
-  record_class: LedgerSync::Test::TemplateLedgerRecord
+STRIPE_RECORD_COLLECTION = LedgerSync::Test::RecordCollection.new(
+  dir: File.join(LedgerSync::Stripe.root, 'spec/support/records'),
+  record_class: LedgerSync::Test::StripeRecord
 )
 
-module TemplateLedgerHelpers # rubocop:disable Metrics/ModuleLength
+module StripeHelpers # rubocop:disable Metrics/ModuleLength
   def authorized_headers(override = {})
     {
       'Accept' => 'application/json',
@@ -32,8 +32,8 @@ module TemplateLedgerHelpers # rubocop:disable Metrics/ModuleLength
     id      = args.fetch(:id, nil)
     params  = args.fetch(:params, {})
 
-    resource_endpoint = template_ledger_client.class.ledger_resource_type_for(resource_class: resource.class).pluralize
-    ret = "https://api.template_ledger.com/#{resource_endpoint}"
+    resource_endpoint = stripe_client.class.ledger_resource_type_for(resource_class: resource.class).pluralize
+    ret = "https://api.stripe.com/#{resource_endpoint}"
 
     if id.present?
       ret += '/' unless ret.end_with?('/')
@@ -55,24 +55,24 @@ module TemplateLedgerHelpers # rubocop:disable Metrics/ModuleLength
     }.merge(overrides)
   end
 
-  def template_ledger_client
-    LedgerSync.ledgers.template_ledger.new_from_env
+  def stripe_client
+    LedgerSync.ledgers.stripe.new_from_env
   end
 
-  def template_ledger_env?
-    @template_ledger_env ||= ENV.key?('USE_DOTENV_ADAPTOR_SECRETS')
+  def stripe_env?
+    @stripe_env ||= ENV.key?('USE_DOTENV_ADAPTOR_SECRETS')
   end
 
-  def template_ledger_records
-    @template_ledger_records ||= TEMPLATE_LEDGER_RECORD_COLLECTION
+  def stripe_records
+    @stripe_records ||= STRIPE_RECORD_COLLECTION
   end
 
-  def template_ledger_resource_type
-    record.to_s.gsub(/^template_ledger_/, '')
+  def stripe_resource_type
+    record.to_s.gsub(/^stripe_/, '')
   end
 
   def stub_create_for_record
-    send("stub_#{template_ledger_resource_type}_create")
+    send("stub_#{stripe_resource_type}_create")
   end
 
   def stub_create_request(body:, url:)
@@ -87,7 +87,7 @@ module TemplateLedgerHelpers # rubocop:disable Metrics/ModuleLength
   end
 
   def stub_delete_for_record
-    send("stub_#{template_ledger_resource_type}_delete")
+    send("stub_#{stripe_resource_type}_delete")
   end
 
   def stub_delete_request(url:)
@@ -103,7 +103,7 @@ module TemplateLedgerHelpers # rubocop:disable Metrics/ModuleLength
   end
 
   def stub_find_for_record(params: {})
-    send("stub_#{template_ledger_resource_type}_find", params)
+    send("stub_#{stripe_resource_type}_find", params)
   end
 
   def stub_find_request(response_body:, url:)
@@ -115,11 +115,11 @@ module TemplateLedgerHelpers # rubocop:disable Metrics/ModuleLength
   end
 
   def stub_search_for_record
-    send("stub_#{template_ledger_resource_type}_search")
+    send("stub_#{stripe_resource_type}_search")
   end
 
   def stub_update_for_record(params: {})
-    send("stub_#{template_ledger_resource_type}_update", params)
+    send("stub_#{stripe_resource_type}_update", params)
   end
 
   def stub_update_request(args = {})
@@ -137,7 +137,7 @@ module TemplateLedgerHelpers # rubocop:disable Metrics/ModuleLength
   end
 
   # Dynamically define helpers
-  TEMPLATE_LEDGER_RECORD_COLLECTION.all.each do |record, opts|
+  STRIPE_RECORD_COLLECTION.all.each do |record, opts|
     record = record.gsub('/', '_')
     url_method_name = "#{record}_url"
 

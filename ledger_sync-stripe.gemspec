@@ -2,11 +2,11 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ledger_sync/template_ledger/version'
+require 'ledger_sync/stripe/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'ledger_sync-template_ledger'
-  spec.version = LedgerSync::TemplateLedger::VERSION
+  spec.name = 'ledger_sync-stripe'
+  spec.version = LedgerSync::Stripe::VERSION
   spec.authors = ['Modern Treasury']
   spec.email = ['ledgersync@moderntreasury.com']
 
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = 'Sync common objects to accounting software.'
   spec.description = 'LedgerSync is a simple library that allows you to sync common objects to popular accounting '\
-                     'software like QuickBooks Online, TemplateLedger, NetSuite, etc.'
+                     'software like QuickBooks Online, Stripe, NetSuite, etc.'
   spec.homepage = 'https://www.ledgersync.dev'
 
   # Specify which files should be added to the gem when it is released.

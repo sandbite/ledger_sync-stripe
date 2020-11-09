@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module TemplateLedger
+  module Stripe
     class SampleResource
       module Operations
-        class Create < TemplateLedger::Operation::Create
+        class Create < Stripe::Operation::Create
           class Contract < LedgerSync::Ledgers::Contract
             params do
               required(:external_id).filled(:string)

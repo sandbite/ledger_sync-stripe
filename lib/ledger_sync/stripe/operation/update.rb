@@ -3,10 +3,10 @@
 require_relative '../operation'
 
 module LedgerSync
-  module TemplateLedger
+  module Stripe
     class Operation
-      class Create
-        include TemplateLedger::Operation::Mixin
+      class Update
+        include Stripe::Operation::Mixin
 
         private
 

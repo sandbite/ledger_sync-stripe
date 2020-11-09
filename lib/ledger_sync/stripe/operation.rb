@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LedgerSync
-  module TemplateLedger
+  module Stripe
     class Operation
       module Mixin
         def self.included(base)
@@ -22,7 +22,7 @@ module LedgerSync
           end
 
           def ledger_resource_type_for_path
-            template_ledger_resource_type.pluralize.downcase
+            stripe_resource_type.pluralize.downcase
           end
 
           def response_to_operation_result(response:)
@@ -47,8 +47,8 @@ module LedgerSync
             client.update_secrets_in_dotenv
           end
 
-          def template_ledger_resource_type
-            @template_ledger_resource_type ||= client.class.ledger_resource_type_for(resource_class: resource.class)
+          def stripe_resource_type
+            @stripe_resource_type ||= client.class.ledger_resource_type_for(resource_class: resource.class)
           end
         end
       end

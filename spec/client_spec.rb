@@ -2,13 +2,13 @@
 
 require 'spec_helper'
 
-support :template_ledger_helpers
+support :stripe_helpers
 
-RSpec.describe LedgerSync::TemplateLedger::Client do
-  include TemplateLedgerHelpers
+RSpec.describe LedgerSync::Stripe::Client do
+  include StripeHelpers
 
   let(:api_key) { 'api_key' }
-  let(:client) { template_ledger_client }
+  let(:client) { stripe_client }
   let(:initialized_client) do
     described_class.new(
       api_key: api_key

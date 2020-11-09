@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-support :template_ledger_shared_examples
+support :stripe_shared_examples
 
-RSpec.describe LedgerSync::TemplateLedger::SampleResource::Operations::Create, operation: true do
-  it_behaves_like 'a template_ledger operation'
+RSpec.describe LedgerSync::Stripe::SampleResource::Operations::Create, operation: true do
+  it_behaves_like 'a stripe operation'
 end

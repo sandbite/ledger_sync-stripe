@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 core_support :operation_shared_examples
-support :template_ledger_helpers
+support :stripe_helpers
 
-RSpec.shared_examples 'a template_ledger operation' do
-  include TemplateLedgerHelpers
+RSpec.shared_examples 'a stripe operation' do
+  include StripeHelpers
 
   let(:resource) { FactoryBot.create("#{client.class.config.root_key}_#{record}") } unless method_defined?(:resource)
-  let(:client) { template_ledger_client } unless method_defined?(:client)
+  let(:client) { stripe_client } unless method_defined?(:client)
   unless method_defined?(:record)
     let(:record) do
       described_class.inferred_resource_class.resource_type.to_s
@@ -21,11 +21,11 @@ RSpec.shared_examples 'a template_ledger operation' do
     when :create
       resource.ledger_id = nil
     when :delete
-      resource.ledger_id = template_ledger_records.send(record).id
+      resource.ledger_id = stripe_records.send(record).id
     when :find
-      resource.ledger_id = template_ledger_records.send(record).id
+      resource.ledger_id = stripe_records.send(record).id
     when :update
-      resource.ledger_id = template_ledger_records.send(record).id
+      resource.ledger_id = stripe_records.send(record).id
     end
   end
 
@@ -37,13 +37,13 @@ RSpec.shared_examples 'a template_ledger operation' do
       when :create
         stub_create_for_record
       when :delete
-        resource.ledger_id = template_ledger_records.send(record).id
+        resource.ledger_id = stripe_records.send(record).id
         stub_delete_for_record
       when :find
-        resource.ledger_id = template_ledger_records.send(record).id
+        resource.ledger_id = stripe_records.send(record).id
         stub_find_for_record
       when :update
-        resource.ledger_id = template_ledger_records.send(record).id
+        resource.ledger_id = stripe_records.send(record).id
         stub_update_for_record
       end
     end
