@@ -4,6 +4,14 @@ require 'spec_helper'
 
 support :stripe_shared_examples
 
-RSpec.describe LedgerSync::Stripe::Customer::Operations::Create, operation: true do
-  it_behaves_like 'a stripe operation'
+module LedgerSync
+  module Stripe
+    module Customer
+      module Operations
+        RSpec.describe Create, operation: true do
+          it_behaves_like 'a stripe operation'
+        end
+      end
+    end
+  end
 end
