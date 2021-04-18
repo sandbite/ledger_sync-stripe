@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'ledger_sync'
+require 'stripe'
 
 module LedgerSync
   module Stripe

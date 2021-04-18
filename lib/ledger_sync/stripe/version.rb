@@ -3,15 +3,13 @@
 # :nocov:
 module LedgerSync
   module Stripe
-    VERSION = '0.1.0'
+    VERSION = '0.1.1'
 
-    def self.version(args = {})
-      pre = args.fetch(:pre, false)
-
-      if !pre && (!ENV['TRAVIS'] || ENV.fetch('TRAVIS_TAG', '') != '')
-        VERSION
+    def self.version
+      if ENV['PRE_RELEASE']
+        "#{VERSION}.pre.#{ENV['GITHUB_RUN_NUMBER']}"
       else
-        "#{VERSION}.pre.#{ENV['TRAVIS_BUILD_NUMBER']}"
+        VERSION
       end
     end
   end
