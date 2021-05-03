@@ -10,7 +10,7 @@ RSpec.describe LedgerSync::Stripe::Customer, qa: true, client: :stripe do
     }
   end
   let(:resource) do
-    FactoryBot.create(:customer)
+    FactoryBot.create(:stripe_customer)
   end
 
   it_behaves_like 'a full stripe resource'
