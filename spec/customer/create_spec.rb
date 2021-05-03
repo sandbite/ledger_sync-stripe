@@ -6,7 +6,7 @@ support :stripe_shared_examples
 
 module LedgerSync
   module Stripe
-    module Customer
+    class Customer
       module Operations
         RSpec.describe Create, operation: true do
           it_behaves_like 'a stripe operation'
