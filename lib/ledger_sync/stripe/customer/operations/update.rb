@@ -17,7 +17,7 @@ module LedgerSync
 
           private
 
-          def operate
+          def operate # rubocop:disable Metrics/MethodLength
             stripe_customer = ::Stripe::Customer.update(
               resource.ledger_id,
               email: resource.email,

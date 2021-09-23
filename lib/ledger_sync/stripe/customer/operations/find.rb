@@ -17,7 +17,7 @@ module LedgerSync
 
           private
 
-          def operate
+          def operate  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
             stripe_customer = ::Stripe::Customer.retrieve(
               resource.ledger_id
             )

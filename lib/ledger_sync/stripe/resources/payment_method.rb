@@ -2,7 +2,7 @@
 
 module LedgerSync
   module Stripe
-    class Customer < Stripe::Resource
+    class PaymentMethod < Stripe::Resource
     end
   end
 end
