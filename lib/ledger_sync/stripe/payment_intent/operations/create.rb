@@ -31,7 +31,8 @@ module LedgerSync
               customer: resource.customer_id,
               payment_method: resource.payment_method_id,
               off_session: resource.off_session,
-              confirm: true
+              return_url: resource.return_url,
+              confirm: resource.confirm
             }
           end
         end
