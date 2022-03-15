@@ -17,7 +17,7 @@ module LedgerSync
 
           def operate
             pm_intent = ::Stripe::PaymentIntent.retrieve(
-              resource.payment_intent_id,
+              resource.payment_intent_id
             )
             resource.ledger_id = resource.payment_intent_id
 

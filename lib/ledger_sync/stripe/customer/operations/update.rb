@@ -7,17 +7,17 @@ module LedgerSync
         class Update < Stripe::Operation::Update
           class Contract < LedgerSync::Ledgers::Contract
             params do
+              required(:ledger_id).filled(:string)
               required(:external_id).maybe(:string)
-              required(:ledger_id).value(:string)
               required(:email).maybe(:string)
-              required(:name).filled(:string)
+              required(:name).maybe(:string)
               required(:phone_number).maybe(:string)
             end
           end
 
           private
 
-          def operate # rubocop:disable Metrics/MethodLength
+          def operate
             stripe_customer = ::Stripe::Customer.update(
               resource.ledger_id,
               email: resource.email,
