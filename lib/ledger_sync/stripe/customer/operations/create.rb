@@ -9,7 +9,7 @@ module LedgerSync
         class Create < Stripe::Operation::Create
           class Contract < LedgerSync::Ledgers::Contract
             params do
-              required(:phone_number).maybe(:string)
+              required(:external_id).maybe(:string)
             end
           end
 
